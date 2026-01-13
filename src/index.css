@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@layer utilities {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        background-image: linear-gradient(to bottom right, hsl(var(--background)), #0f172a);
+    }
+
+    .dark body {
+        background-image: linear-gradient(to bottom right, #020617, #083344);
+    }
+}
