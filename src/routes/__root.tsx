@@ -33,6 +33,13 @@ export const Route = createRootRoute({
         href: '/favicon.svg',
       },
     ],
+    scripts: [
+      {
+        src: 'https://cloud.umami.is/script.js',
+        defer: true,
+        'data-website-id': '3304c40d-c7ed-49cb-8f30-1eadcedfef05',
+      },
+    ],
   }),
 
   shellComponent: RootDocument,
