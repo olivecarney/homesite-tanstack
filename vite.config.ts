@@ -5,7 +5,8 @@ import tailwindcss from '@tailwindcss/vite'
 import viteReact from '@vitejs/plugin-react'
 import viteTsConfigPaths from 'vite-tsconfig-paths'
 import { fileURLToPath, URL } from 'url'
-import { nitro } from 'nitro/vite'
+// import { nitro } from 'nitro/vite'
+import netlify from '@netlify/vite-plugin-tanstack-start'
 
 const config = defineConfig({
   resolve: {
@@ -14,8 +15,8 @@ const config = defineConfig({
     },
   },
   plugins: [
-    devtools(),
-    nitro(),
+    // devtools(),
+    // nitro(),
     // this is the plugin that enables path aliases
     viteTsConfigPaths({
       projects: ['./tsconfig.json'],
@@ -24,6 +25,7 @@ const config = defineConfig({
     tanstackStart(),
     viteReact(),
     tailwindcss(),
+    netlify(),
   ],
   build: {
     rollupOptions: {
