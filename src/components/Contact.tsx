@@ -1,15 +1,41 @@
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea"; // I need to install textarea and input first!
-
-// I need to install textarea and input from shadcn.
-// For now I will use standard inputs/textareas with proper classes if I forget to install them,
-// but better to stick to the plan.
-// Actually, I haven't installed 'input' and 'textarea' components yet.
-// I will just write this file assuming I will install them next, or use native elements with Shadcn classes.
-// I'll install them in the next step to be correct.
+import { useState, ChangeEvent, FormEvent } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { sendEmailFn } from "@/lib/email";
 
 export default function Contact() {
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [message, setMessage] = useState("");
+    const [isSending, setIsSending] = useState(false);
+    const [status, setStatus] = useState<{ type: 'success' | 'error', message: string } | null>(null);
+
+    const isValid = name.trim() !== "" && email.trim() !== "" && message.trim() !== "";
+
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setIsSending(true);
+        setStatus(null);
+
+        try {
+            const result = await sendEmailFn({ data: { name, email, message } });
+
+            if (result.success) {
+                setStatus({ type: 'success', message: 'Message sent successfully!' });
+                setName("");
+                setEmail("");
+                setMessage("");
+            } else {
+                setStatus({ type: 'error', message: result.message || 'Failed to send message.' });
+            }
+        } catch (error) {
+            setStatus({ type: 'error', message: 'An unexpected error occurred.' });
+        } finally {
+            setIsSending(false);
+        }
+    };
+
     return (
         <section id="contact" className="py-20 bg-background">
             <div className="container px-4 mx-auto max-w-xl text-center">
@@ -18,38 +44,51 @@ export default function Contact() {
                     Have a project in mind or just want to say hi? Feel free to send me a message.
                 </p>
 
-                <form className="space-y-4 text-left" onSubmit={(e) => e.preventDefault()}>
+                <form className="space-y-4 text-left" onSubmit={handleSubmit}>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <label htmlFor="name" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Name</label>
-                            <input
+                            <Input
                                 id="name"
-                                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                                 placeholder="John Doe"
+                                value={name}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+                                disabled={isSending}
                             />
                         </div>
                         <div className="space-y-2">
                             <label htmlFor="email" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Email</label>
-                            <input
+                            <Input
                                 id="email"
                                 type="email"
-                                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                                 placeholder="john@example.com"
+                                value={email}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                                disabled={isSending}
                             />
                         </div>
                     </div>
 
                     <div className="space-y-2">
                         <label htmlFor="message" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Message</label>
-                        <textarea
+                        <Textarea
                             id="message"
-                            className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                            className="min-h-[120px]"
                             placeholder="Your message here..."
+                            value={message}
+                            onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setMessage(e.target.value)}
+                            disabled={isSending}
                         />
                     </div>
 
-                    <Button type="submit" className="w-full">
-                        Send Message
+                    {status && (
+                        <div className={`p-3 rounded-md text-sm ${status.type === 'success' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'}`}>
+                            {status.message}
+                        </div>
+                    )}
+
+                    <Button type="submit" className="w-full" disabled={!isValid || isSending}>
+                        {isSending ? "Sending..." : "Send Message"}
                     </Button>
                 </form>
             </div>

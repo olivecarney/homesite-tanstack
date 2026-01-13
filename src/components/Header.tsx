@@ -34,17 +34,17 @@ export default function Header() {
               <DropdownMenuLabel>Navigation</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
-                <Link to="/#projects" className="cursor-pointer w-full">
+                <Link to="/" hash="projects" className="cursor-pointer w-full">
                   Projects
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link to="/#timeline" className="cursor-pointer w-full">
+                <Link to="/" hash="timeline" className="cursor-pointer w-full">
                   Timeline
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link to="/#contact" className="cursor-pointer w-full">
+                <Link to="/" hash="contact" className="cursor-pointer w-full">
                   Contact
                 </Link>
               </DropdownMenuItem>
@@ -56,7 +56,7 @@ export default function Header() {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
-                <a href="https://terminal.carney.dev" target="_blank" rel="noreferrer" className="flex items-center cursor-pointer w-full text-muted-foreground hover:text-foreground">
+                <a href="https://terminal.carney.dev" target="_blank" rel="noopener noreferrer" className="flex items-center cursor-pointer w-full text-muted-foreground hover:text-foreground">
                   <Terminal className="mr-2 h-4 w-4" />
                   Terminal Mode
                 </a>

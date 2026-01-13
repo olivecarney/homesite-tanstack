@@ -35,7 +35,7 @@ export default function Hero() {
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                         <Button variant="outline" size="lg" className="group border-primary/20 hover:border-primary/50" asChild>
-                            <Link to="/#projects">
+                            <Link to="/" hash="projects">
                                 View Projects
                                 <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
                             </Link>
@@ -55,7 +55,7 @@ export default function Hero() {
                 <div className="flex items-center justify-center gap-4 mt-8">
                     <motion.div whileHover={{ scale: 1.1, rotate: 5 }} whileTap={{ scale: 0.9 }}>
                         <Button variant="ghost" size="icon" asChild className="text-muted-foreground hover:text-foreground">
-                            <a href="https://github.com/olivecarney" target="_blank" rel="noreferrer">
+                            <a href="https://github.com/olivecarney" target="_blank" rel="noopener noreferrer">
                                 <Github className="w-5 h-5" />
                                 <span className="sr-only">GitHub</span>
                             </a>
@@ -63,7 +63,7 @@ export default function Hero() {
                     </motion.div>
                     <motion.div whileHover={{ scale: 1.1, rotate: -5 }} whileTap={{ scale: 0.9 }}>
                         <Button variant="ghost" size="icon" asChild className="text-muted-foreground hover:text-foreground">
-                            <a href="https://linkedin.com/in/oliver-carney" target="_blank" rel="noreferrer">
+                            <a href="https://linkedin.com/in/oliver-carney" target="_blank" rel="noopener noreferrer">
                                 <Linkedin className="w-5 h-5" />
                                 <span className="sr-only">LinkedIn</span>
                             </a>

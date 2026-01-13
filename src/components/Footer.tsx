@@ -14,7 +14,7 @@ export default function Footer() {
                     <a
                         href="https://github.com/olivecarney"
                         target="_blank"
-                        rel="noreferrer"
+                        rel="noopener noreferrer"
                         className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                     >
                         GitHub
@@ -23,7 +23,7 @@ export default function Footer() {
                     <a
                         href="https://linkedin.com/in/oliver-carney"
                         target="_blank"
-                        rel="noreferrer"
+                        rel="noopener noreferrer"
                         className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                     >
                         LinkedIn
