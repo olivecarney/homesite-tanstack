@@ -17,4 +17,10 @@ export const projects = [
             "A web development boilerplate separating content from structure, allowing developers to control layout while clients manage content.",
         link: "https://github.com/olivecarney/handover",
     },
+    {
+        title: "ReVector",
+        description:
+            "A developer tool that instantly optimizes raw SVGs and converts them into clean, type-safe React or Vue components.",
+        link: "https://github.com/olivecarney/revector",
+    },
 ];
